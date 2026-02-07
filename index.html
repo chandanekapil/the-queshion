@@ -3,23 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Forever ❤️</title>
+    <title>Be My Valentine? 🐼</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         body { background-color: #ffafcc; overflow: hidden; margin: 0; font-family: 'Arial', sans-serif; }
-        .rain { position: absolute; vertical-align: bottom; width: 2px; height: 50px; background: rgba(255, 255, 255, 0.6); z-index: 1; pointer-events: none; }
+        .rain { position: absolute; width: 2px; height: 50px; background: rgba(255, 255, 255, 0.6); z-index: 1; pointer-events: none; }
         #noBtn { transition: 0.1s; z-index: 50; }
         .card { background: rgba(255, 255, 255, 0.9); z-index: 10; position: relative; }
+        #panda-img { transition: all 0.5s ease; }
     </style>
 </head>
 <body class="h-screen flex items-center justify-center">
 
     <div class="card p-10 rounded-3xl shadow-2xl text-center max-w-md border-4 border-pink-400">
         <div id="content">
-            <h1 id="main-text" class="text-3xl font-bold text-pink-600 mb-6">Will you marry me? 💍</h1>
-            <div id="image-container" class="mb-6">
-                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueG53bm9pZ3R4bm53bm9pZ3R4bm53bm9pZ3R4bm53bm9pZ3R4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/v0YkhYh3mXkt54T45X/giphy.gif" class="w-48 mx-auto rounded-xl">
+            <h1 id="main-text" class="text-3xl font-bold text-pink-600 mb-6">Will you be my Valentine? 💖</h1>
+            
+            <div id="image-container" class="mb-6 h-48 flex items-center justify-center">
+                <img id="panda-img" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueG53bm9pZ3R4bm53bm9pZ3R4bm53bm9pZ3R4bm53bm9pZ3R4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/69mUSKBujnpgmxc8g/giphy.gif" class="w-40 rounded-xl">
             </div>
 
             <div class="flex justify-center gap-6" id="btn-group">
@@ -35,39 +37,40 @@
 
     <script>
         let rainCount = 0;
-        let rainInterval;
 
         function moveNo() {
-            // Move the button
             const btn = document.getElementById('noBtn');
+            const panda = document.getElementById('panda-img');
+            
+            // 1. Move the button
             const x = Math.random() * (window.innerWidth - btn.offsetWidth);
             const y = Math.random() * (window.innerHeight - btn.offsetHeight);
             btn.style.position = 'fixed';
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
 
-            // Increase Rain
-            rainCount += 20;
+            // 2. Change to Sad Panda
+            panda.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHpueG53bm9pZ3R4bm53bm9pZ3R4bm53bm9pZ3R4bm53bm9pZ3R4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/v0YkhYh3mXkt54T45X/giphy.gif";
+
+            // 3. Make it Rain
             makeItRain();
         }
 
         function makeItRain() {
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 15; i++) {
                 const drop = document.createElement('div');
                 drop.classList.add('rain');
                 drop.style.left = Math.random() * window.innerWidth + 'px';
                 drop.style.top = '-50px';
-                drop.style.animation = `fall ${Math.random() * 0.5 + 0.5}s linear infinite`;
                 document.body.appendChild(drop);
                 
-                // Simple animation
                 let position = -50;
                 const id = setInterval(() => {
                     if (position > window.innerHeight) {
                         clearInterval(id);
                         drop.remove();
                     } else {
-                        position += 10;
+                        position += 7;
                         drop.style.top = position + 'px';
                     }
                 }, 10);
@@ -75,22 +78,23 @@
         }
 
         function sayYes() {
-            // Stop Rain
+            // Stop and Remove Rain
             const drops = document.querySelectorAll('.rain');
             drops.forEach(d => d.remove());
-            rainCount = 0;
 
-            // Update Content
+            // Update Content with Panda Couple
             document.getElementById('content').innerHTML = `
-                <h1 class="text-4xl font-bold text-pink-600 mb-4">FOREVER! ❤️</h1>
-                <p class="text-xl text-gray-700 mb-6">You've made me the happiest person alive.</p>
-                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueG53bm9pZ3R4bm53bm9pZ3R4bm53bm9pZ3R4bm53bm9pZ3R4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/69mUSKBujnpgmxc8g/giphy.gif" class="w-64 mx-auto rounded-lg">
+                <h1 class="text-4xl font-bold text-pink-600 mb-4">YAY! ❤️</h1>
+                <p class="text-xl text-gray-700 mb-6">See you on Valentine's Day!</p>
+                <div class="mb-6 h-48 flex items-center justify-center">
+                    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueG53bm9pZ3R4bm53bm9pZ3R4bm53bm9pZ3R4bm53bm9pZ3R4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3oriO0OEd9QIDdllqo/giphy.gif" class="w-64 mx-auto rounded-lg shadow-lg border-4 border-pink-200">
+                </div>
             `;
 
-            // Crackers (Confetti)
-            const duration = 15 * 1000;
+            // Crackers (Firework Confetti)
+            const duration = 10 * 1000;
             const animationEnd = Date.now() + duration;
-            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
 
             const interval = setInterval(function() {
                 const timeLeft = animationEnd - Date.now();
